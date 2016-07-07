@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+<meta name="author" content="Andrew Taylor" />
+
+<meta name="date" content="2016-02-11" />
+
+<title>atAnalyze</title>
+
+
+
+
+<link href="data:text/css;charset=utf-8,body%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Amargin%3A%201em%20auto%3B%0Amax%2Dwidth%3A%20700px%3B%0Aoverflow%3A%20visible%3B%0Apadding%2Dleft%3A%202em%3B%0Apadding%2Dright%3A%202em%3B%0Afont%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2014px%3B%0Aline%2Dheight%3A%201%2E35%3B%0A%7D%0A%23header%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0A%23TOC%20%7B%0Aclear%3A%20both%3B%0Amargin%3A%200%200%2010px%2010px%3B%0Apadding%3A%204px%3B%0Awidth%3A%20400px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Aborder%2Dradius%3A%205px%3B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Afont%2Dsize%3A%2013px%3B%0Aline%2Dheight%3A%201%2E3%3B%0A%7D%0A%23TOC%20%2Etoctitle%20%7B%0Afont%2Dweight%3A%20bold%3B%0Afont%2Dsize%3A%2015px%3B%0Amargin%2Dleft%3A%205px%3B%0A%7D%0A%23TOC%20ul%20%7B%0Apadding%2Dleft%3A%2040px%3B%0Amargin%2Dleft%3A%20%2D1%2E5em%3B%0Amargin%2Dtop%3A%205px%3B%0Amargin%2Dbottom%3A%205px%3B%0A%7D%0A%23TOC%20ul%20ul%20%7B%0Amargin%2Dleft%3A%20%2D2em%3B%0A%7D%0A%23TOC%20li%20%7B%0Aline%2Dheight%3A%2016px%3B%0A%7D%0Atable%20%7B%0Amargin%3A%201em%20auto%3B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dcolor%3A%20%23DDDDDD%3B%0Aborder%2Dstyle%3A%20outset%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0Aborder%2Dwidth%3A%202px%3B%0Apadding%3A%205px%3B%0Aborder%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dstyle%3A%20inset%3B%0Aline%2Dheight%3A%2018px%3B%0Apadding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0Aborder%2Dleft%2Dstyle%3A%20none%3B%0Aborder%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Ap%20%7B%0Amargin%3A%200%2E5em%200%3B%0A%7D%0Ablockquote%20%7B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Apadding%3A%200%2E25em%200%2E75em%3B%0A%7D%0Ahr%20%7B%0Aborder%2Dstyle%3A%20solid%3B%0Aborder%3A%20none%3B%0Aborder%2Dtop%3A%201px%20solid%20%23777%3B%0Amargin%3A%2028px%200%3B%0A%7D%0Adl%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Adl%20dd%20%7B%0Amargin%2Dbottom%3A%2013px%3B%0Amargin%2Dleft%3A%2013px%3B%0A%7D%0Adl%20dt%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Aul%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Aul%20li%20%7B%0Alist%2Dstyle%3A%20circle%20outside%3B%0A%7D%0Aul%20ul%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Apre%2C%20code%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0Acolor%3A%20%23333%3B%0A%7D%0Apre%20%7B%0Awhite%2Dspace%3A%20pre%2Dwrap%3B%20%0Aborder%2Dradius%3A%203px%3B%0Amargin%3A%205px%200px%2010px%200px%3B%0Apadding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0Afont%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0Apadding%3A%202px%200px%3B%0A%7D%0Adiv%2Efigure%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF%3B%0Apadding%3A%202px%3B%0Aborder%3A%201px%20solid%20%23DDDDDD%3B%0Aborder%2Dradius%3A%203px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Amargin%3A%200%205px%3B%0A%7D%0Ah1%20%7B%0Amargin%2Dtop%3A%200%3B%0Afont%2Dsize%3A%2035px%3B%0Aline%2Dheight%3A%2040px%3B%0A%7D%0Ah2%20%7B%0Aborder%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Apadding%2Dbottom%3A%202px%3B%0Afont%2Dsize%3A%20145%25%3B%0A%7D%0Ah3%20%7B%0Aborder%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Afont%2Dsize%3A%20120%25%3B%0A%7D%0Ah4%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0Amargin%2Dleft%3A%208px%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Ah5%2C%20h6%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23ccc%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%230033dd%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%20%236666ff%3B%20%7D%0Aa%3Avisited%20%7B%0Acolor%3A%20%23800080%3B%20%7D%0Aa%3Avisited%3Ahover%20%7B%0Acolor%3A%20%23BB00BB%3B%20%7D%0Aa%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0Aa%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%20code%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%0A" rel="stylesheet" type="text/css" />
+
+</head>
+
+<body>
+
+
+
+<div id="header">
+<h1 class="title">atAnalyze</h1>
+<h4 class="author"><em>Andrew Taylor</em></h4>
+<h4 class="date"><em>2016-02-11</em></h4>
+</div>
+
+
+<div id="correlation-testing-and-reporting" class="section level2">
+<h2>Correlation Testing and Reporting:</h2>
+<p><code>corrCompare()</code> computes a correlation table for each level of a binary grouping variable separately, and then tests differences in correlation coefficients between grouping variables</p>
+<p>Usage: <code>corrCompare(data = k, group = &quot;grp&quot;, method = &quot;pearson&quot;, rdec = 3, pdec = 3, tdec = 3)</code></p>
+<p><code>corrStars()</code> computes a correlation matrix, along with asterisks to indicate significance.</p>
+<p>Usage: <code>corrStars(x, method = &quot;spearman&quot;, dec = 2)</code></p>
+</div>
+<div id="confidence-intervals" class="section level2">
+<h2>Confidence Intervals:</h2>
+<p><code>multAovInteraction()</code> is a wrapper for <code>factor()</code> which will apply a common label to one or more variables in <code>data.frame</code>.</p>
+<p>Usage: <code>ciMean(data = df, varlist = c(&quot;var1&quot;, &quot;var2&quot;), labels = c(&quot;No&quot;, &quot;Yes&quot;))</code></p>
+<p><code>ciProp()</code> reorders the ordering of the levels of a factor variable. If the order is not given, the factor levels are reverse-ordered.</p>
+<p>Usage: <code>ciProp(x, index_order = c(3, 1, 2))</code></p>
+</div>
+<div id="iterative-analysis-and-reporting" class="section level2">
+<h2>Iterative Analysis and Reporting:</h2>
+<p><code>multAovInteraction()</code> provides descriptive summary of multiple depedent variables, stratified by two grouping variables, along with p-values from aov() models testing the main effects and interaction between the two grouping variables.</p>
+<p>Usage: <code>multAovInteraction(data, grp_var1, grp_var2, varlist, round = 2, pround = 3))</code></p>
+<p><code>multCox()</code> will compute univariate Cox proportional hazards model models for multiple predictor variables.</p>
+<p>Usage: <code>multCox(data, timevar, event, vars, classvars = NULL, varLabelTable = NULL, dec = 2, pdec = 3)</code></p>
+<p><code>multGroup()</code> provides summary statistics for continous and categorical variables either overall or stratified by a grouping variable. It also provides parametric or nonparametric tests for each variable</p>
+<p>Usage: <code>multGroup(data, PcontinVars = NULL, PcatVars = NULL, NPcontinVars = NULL, NPcatVars = NULL, SortVars = NULL, varLabelTable = NULL, grouping = NULL, pdec = 3, dec = 2, mu = 0, ChiProbabilities = NULL, labels = NULL, percent = &quot;column&quot;, NPdescriptives = NULL, padjust = F, provideP = T, include = &quot;none&quot;, verbose = T)</code></p>
+<p><code>multLogistic()</code> performs univariate, multivariate, and/or conditional logistic regression models over a list of predictor variables.</p>
+<p>Usage: <code>multLogistic(data, y, predlist)</code></p>
+<p><code>multOutcomesLogistic()</code> provides results for univariate binary logistic regression models for a single predictor and multiple outcomes.</p>
+<p>Usage: <code>multOutcomesLogistic(data, predictor, outcomes)</code></p>
+<p><code>multReg()</code> performs univariate simple linear regression models for a single outcome variable over a list of predictor variables.</p>
+<p>Usage: <code>multReg(data, yvar, predlist)</code></p>
+<p><code>t_testList()</code> performs paired and unpaired parametric and non-parametric t.tests between columns within a data.frame, for multiple pairs of varaibles given in list form.</p>
+<p>Usage: <code>t_testList(data, list_of_t.tests</code></p>
+</div>
+<div id="other-survival-analysis-analysis-reporting-methods" class="section level2">
+<h2>Other Survival Analysis Analysis Reporting Methods</h2>
+<p><code>kmTable()</code> provides summary information from a kaplan-meier survival model, including median survival, event counts, and pairwise comparisons.</p>
+<p>Usage: <code>kmTable(data, time, event, group)</code></p>
+<p><code>survPercent()</code> provides survival percentages for a survfit(Surv()) model for specified times.</p>
+<p>Usage: <code>survPercent(model, times, labels = NULL)</code></p>
+</div>
+<div id="risk-difference-analysis" class="section level2">
+<h2>Risk Difference Analysis</h2>
+<p><code>riskDifference()</code> provides the risk difference for a categorical predictor and binary outcome. The reference/control group is the first level of the predictor variable.</p>
+<p>Usage: <code>riskDifference(data, y, x)</code></p>
+</div>
+
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

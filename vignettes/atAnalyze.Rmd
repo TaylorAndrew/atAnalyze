@@ -1,0 +1,90 @@
+---
+title: "atAnalyze"
+author: "Andrew Taylor"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{atAnalyze}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+## Correlation Testing and Reporting:
+
+`corrCompare()` computes a correlation table for each level of a binary grouping variable separately, and then tests differences in correlation coefficients between grouping variables
+
+
+
+Usage: `corrCompare(data = k, group = "grp", method = "pearson", rdec = 3, pdec = 3, tdec = 3)`
+
+
+
+`corrStars()` computes a correlation matrix, along with asterisks to indicate significance.
+
+Usage: `corrStars(x, method = "spearman", dec = 2)`
+
+
+
+## Confidence Intervals:
+
+`multAovInteraction()` is a wrapper for `factor()` which will apply a common label to one or more variables in `data.frame`.
+
+Usage: `ciMean(data = df, varlist = c("var1", "var2"), labels = c("No", "Yes"))`
+
+
+
+`ciProp()` reorders the ordering of the levels of a factor variable. If the order is not given, the factor levels are reverse-ordered.
+
+Usage: `ciProp(x, index_order = c(3, 1, 2))`
+
+
+## Iterative Analysis and Reporting:
+
+
+`multAovInteraction()` provides descriptive summary of multiple depedent variables, stratified by two grouping variables, along with p-values from aov() models testing the main effects and interaction between the two grouping variables.
+
+Usage: `multAovInteraction(data, grp_var1, grp_var2, varlist, round = 2, pround = 3))`
+
+
+
+`multCox()` will compute univariate Cox proportional hazards model models for multiple predictor variables.
+
+Usage: `multCox(data, timevar, event, vars, classvars = NULL, varLabelTable = NULL, dec = 2, pdec = 3)`
+
+
+`multGroup()` provides summary statistics for continous and categorical variables either overall or stratified by a grouping variable. It also provides parametric or nonparametric tests for each variable
+
+Usage: `multGroup(data, PcontinVars = NULL, PcatVars = NULL, NPcontinVars = NULL, NPcatVars = NULL, SortVars = NULL, varLabelTable = NULL, grouping = NULL, pdec = 3, dec = 2, mu = 0, ChiProbabilities = NULL, labels = NULL, percent = "column", NPdescriptives = NULL, padjust = F, provideP = T, include = "none", verbose = T)`
+
+`multLogistic()` performs univariate, multivariate, and/or conditional logistic regression models over a list of predictor variables.
+
+Usage: `multLogistic(data, y, predlist)`
+
+`multOutcomesLogistic()` provides results for univariate binary logistic regression models for a single predictor and multiple outcomes.
+
+Usage: `multOutcomesLogistic(data, predictor, outcomes)`
+
+`multReg()` performs univariate simple linear regression models for a single outcome variable over a list of predictor variables.
+
+Usage: `multReg(data, yvar, predlist)`
+
+`t_testList()` performs paired and unpaired parametric and non-parametric t.tests between columns within a data.frame, for multiple pairs of varaibles given in list form.
+
+Usage: `t_testList(data, list_of_t.tests`
+
+## Other Survival Analysis Analysis Reporting Methods
+
+`kmTable()` provides summary information from a kaplan-meier survival model, including median survival, event counts, and pairwise comparisons.
+
+Usage: `kmTable(data, time, event, group)`
+
+
+`survPercent()` provides survival percentages for a survfit(Surv()) model for specified times.
+
+Usage: `survPercent(model, times, labels = NULL)`
+
+## Risk Difference Analysis
+
+`riskDifference()` provides the risk difference for a categorical predictor and binary outcome. The reference/control group is the first level of the predictor variable.
+
+Usage: `riskDifference(data, y, x)`

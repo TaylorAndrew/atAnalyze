@@ -1,0 +1,26 @@
+Package: atAnalyze
+Type: Package
+Title: Methods for Iterative Analytical Reporting
+Version: 0.1.0
+Author: Andrew Taylor
+Maintainer: Andrew Taylor <taylor.andrew.r@gmail.com>
+Description: Methods for report generation for diverse methods including
+    correlations, survival, logistic, ols regression, and grouped methods (e.g. Chi-
+    sq/Fisher, t.test/ANOVA and non-parametric equivalents).
+License: CC0
+LazyData: TRUE
+Imports:
+    psych,
+    Hmisc,
+    survival,
+    coxphf,
+    exactRankTests,
+    coin,
+    pgirmess,
+    logistf,
+    broom,
+    gdata
+RoxygenNote: 5.0.1
+Suggests: knitr,
+    rmarkdown
+VignetteBuilder: knitr

@@ -2,11 +2,25 @@
 #columnGroup and rowGroup.
 #Get the p-values compared var across colGroup at each level of rowGroup and vice
 #versa
+#' twoWayTableWithMarginalPs
+#'
+#' @param data data.frame contianing all data
+#' @param columnGroup Grouping variable to stratify across columns
+#' @param rowGroup Grouping variable to stratify across rows
+#' @param var Outcome variable, numeric
+#' @param columnPaired Logical, whether or not the column grouping variable should be treated as paired
+#' @param rowPaired Logical, whether or not the row grouping variable should be treated as paired
+#' @param aovPairedID If paired, id variable name.
+#'
+#' @return data.frame with all output
+#' @export
+#'
+#' @examples
+#' # Needs and example
 twoWayTableWithMarginalPs <- function(data, columnGroup, rowGroup, var,
                                       columnPaired = FALSE, rowPaired = FALSE,
                                       aovPairedID) {
-  source("M:/bioteam/r_stuff/RFunctions/subset_t.test.R")
-  Table_Plus_rowPsList <- subset_t.test(data = data,
+  Table_Plus_rowPsList <- atAnalyze::subset_t.test(data = data,
                          var = var,
                          grouping = columnGroup,
                          subsetVar = rowGroup,
@@ -15,7 +29,7 @@ twoWayTableWithMarginalPs <- function(data, columnGroup, rowGroup, var,
                          includeTukey = TRUE)
   Table_Plus_rowPs <- Table_Plus_rowPsList$output
   TableComps <- Table_Plus_rowPsList$comps
-  col <- subset_t.test(data = data,
+  col <- atAnalyze::subset_t.test(data = data,
                          var = var,
                          grouping = rowGroup,
                          subsetVar = columnGroup,

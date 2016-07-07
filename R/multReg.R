@@ -28,6 +28,7 @@ multReg <- function(data,
                     rsqdec = 4) {
 
   data <- as.data.frame(data)
+  data <- subset(data, !is.na(data[, yvar]))
   if (!is.null(catlist))
     predlist <- unique(c(predlist,catlist))
 

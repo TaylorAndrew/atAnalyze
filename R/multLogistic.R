@@ -41,6 +41,7 @@ multLogistic <- function(data,
                          verbose = TRUE) {
   yvar <- y
   data <- as.data.frame(data)
+  data <- subset(data, !is.na(data[, yvar]))
   if (conditionalLogistic == FALSE) {
     if (is.null(controlCatList) & is.null(controlContinList)) {
       title <-

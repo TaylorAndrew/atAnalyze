@@ -30,9 +30,9 @@ kmTable <- function(data, time, event, group) {
     )),
     summary(fit)$table[,c(3,4)],
     `Median Survival` = paste0(
-      round(summary(fit)$table[,c(5)], digits = 2), " (",
-      round(summary(fit)$table[,c(6)], digits = 2), ", ",
-      round(summary(fit)$table[,c(7)], digits = 2), ")"
+      round(summary(fit)$table[,c(7)], digits = 2), " (",
+      round(summary(fit)$table[,c(8)], digits = 2), ", ",
+      round(summary(fit)$table[,c(9)], digits = 2), ")"
     )
   )
 

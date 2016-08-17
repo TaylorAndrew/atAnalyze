@@ -18,8 +18,8 @@
 kmTable <- function(data, time, event, group) {
   fit <- survfit(Surv(data[, time], data[, event]) ~ data[, group])
   diffP <- round(1 - pchisq(survdiff(Surv(data[, time], data[, 
-        event]) ~ data[, group])$chisq, survdiff(Surv(data[, time], data[, 
-        event]) ~ data[, group])$n - 1), digits = 3)
+        event]) ~ data[, group])$chisq, length(survdiff(Surv(data[, time], data[, 
+        event]) ~ data[, group])$obs) - 1), digits = 3)
 
 
   descript <- data.frame(

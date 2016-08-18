@@ -49,12 +49,21 @@ subset_t.test <- function(data, #data.frame containing all variables
     }
 
     if(lenlevsgrp==2) {
+    if(paired == F) {
     if(length(d[,var][!is.na(d[,var])])>9 &
        length(d[,grouping][!is.na(d[,grouping])])>9) {
        ttestResult <- round(t.test(d[, var]~ factor(d[, grouping]),
-                          var.equal = var.equal, paired = paired)$p.value,
+                          var.equal = var.equal)$p.value,
                          3)
     } else { ttestResult = "NA"}
+    }
+    }
+    if(paired ==T) {
+    x1 <- d[grouping == levsgrp[1], var]
+    x2 <- d[grouping == levsgrp[2], var]
+    ttestResult <- round(t.test(x1, x2, paired = T,
+                          var.equal = var.equal)$p.value,
+                         3)
     }
     line <- data.frame(Subset = subsetLev, descriptives, pvalue = ttestResult)
     return(line)

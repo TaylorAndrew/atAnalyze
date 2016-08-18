@@ -59,8 +59,8 @@ subset_t.test <- function(data, #data.frame containing all variables
     }
     }
     if(paired ==T) {
-    x1 <- d[grouping == levsgrp[1], var]
-    x2 <- d[grouping == levsgrp[2], var]
+    x1 <- d[d[, grouping] == levsgrp[1], var]
+    x2 <- d[d[, grouping] == levsgrp[2], var]
     ttestResult <- round(t.test(x1, x2, paired = T,
                           var.equal = var.equal)$p.value,
                          3)

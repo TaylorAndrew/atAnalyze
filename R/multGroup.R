@@ -321,6 +321,17 @@ multGroup <- function(data,
         x2 <-
           suppressWarnings(as.numeric(as.character(data[, x][data[, grouping] == flist[2]])))
         x2clean <- x2[!is.na(x2)]
+        tc <- tryCatch(t.test(x1clean, x2clean),
+                        warning = function(w)
+                  w,
+                error = function (e)
+                  e)
+        if (is(tc, "error")) {
+        testname <- "None"
+        sigpcol = "None"
+        pvalue <- 'None'
+        sigpcol <- "None"
+        } else {
         t <- t.test(x1clean, x2clean)
         testname <- "2-sample t-test"
         sigpcol = "None"
@@ -332,6 +343,8 @@ multGroup <- function(data,
         pvalue <- gsub("^1\\.", "> 0.", pvalue)
         pvalue <- gsub("^(0\\.0*)0$", "< \\11", pvalue)
         sigpcol <- "None"
+        }
+
       }
       if (Test == "ANOVA") {
         anovasum <-

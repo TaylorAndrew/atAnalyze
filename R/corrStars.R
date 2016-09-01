@@ -30,7 +30,7 @@ corrStars <- function(x, method = "spearman", dec = 2, N = FALSE) {
   rownames(Rnew) <- colnames(x)
   colnames(Rnew) <- paste(colnames(x), "", sep = "")
   #Add pairwise Ns if N = TRUE
-  if(N = TRUE) {
+  if(N == TRUE) {
     Rnew <- matrix(paste(N, Rnew, sep = ", "), ncol = ncol(Rnew))
   }
   ## remove upper triangle

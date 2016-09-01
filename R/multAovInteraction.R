@@ -8,6 +8,7 @@
 #' @param varlist Vector of variable names to be used as the DV(s)
 #' @param round Number of decimals for descriptive statistics
 #' @param pround Number of decimals for p-values
+#' @param includeN Logical, whether to include the N for descriptives
 #' @return data.frame containing the output summary
 #' @export
 #'

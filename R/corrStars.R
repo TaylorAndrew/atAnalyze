@@ -12,7 +12,7 @@
 #'
 #' @examples
 #' #NULL
-corrStars <- function(x, method = "spearman", dec = 2, N = FALSE) {
+corrStars <- function(x, method = "spearman", dec = 2, includeN= FALSE) {
   x <- as.matrix(x)
   R <- rcorr(x,type = method)$r
   p <- rcorr(x,type = method)$P
@@ -30,7 +30,7 @@ corrStars <- function(x, method = "spearman", dec = 2, N = FALSE) {
   rownames(Rnew) <- colnames(x)
   colnames(Rnew) <- paste(colnames(x), "", sep = "")
   #Add pairwise Ns if N = TRUE
-  if(N == TRUE) {
+  if(includeN == TRUE) {
     Rnew <- matrix(paste(N, Rnew, sep = ", "), ncol = ncol(Rnew))
   }
   ## remove upper triangle

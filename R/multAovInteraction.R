@@ -23,27 +23,40 @@ multAovInteraction <- function(data,
                              grp_var2,
                              varlist,
                              round = 2,
-                             pround = 3) {
+                             pround = 3,
+                             includeN = F) {
     do_one <- function(var) {
-    rowlevs <- ifelse(length(levels(factor(data[,grp_var1]))) < 3,3,
-                      length(levels(factor(data[,grp_var1]))))
+        dataOne <- data[complete.cases(data[, c(grp_var1, grp_var2, var)]) ,]
+    rowlevs <- ifelse(length(levels(factor(dataOne[,grp_var1]))) < 3,3,
+                      length(levels(factor(dataOne[,grp_var1]))))
     mat <- matrix(nrow = rowlevs,
                   ncol = (length(levels(factor(
-                    data[,grp_var2]
+                    dataOne[,grp_var2]
                   ))) + 4))
-    levs1 <- sort(levels(factor(data[,grp_var1])))
-    levs2 <- sort(levels(factor(data[,grp_var2])))
+    levs1 <- sort(levels(factor(dataOne[,grp_var1])))
+    levs2 <- sort(levels(factor(dataOne[,grp_var2])))
     do_cell <- function(i,j) {
       data_small <-
         as.numeric(unlist(subset(
-          data,data[,grp_var1] == levs1[i] &
-            data[,grp_var2] == levs2[j],select =
+          dataOne, dataOne[,grp_var1] == levs1[i] &
+            dataOne[,grp_var2] == levs2[j], select =
             var
         )))
+    if(includeN == FALSE) {
       mat[i,j + 2] <<-
         paste0(round(mean(data_small,na.rm = TRUE),digits = round),
-               " ? ",
-               round(sd(data_small,na.rm = TRUE),digits = round))
+               " (",
+               round(sd(data_small,na.rm = TRUE),digits = round),
+               ")")
+    } else {
+      mat[i,j + 2] <<-
+        paste0(length(data_small),
+               ", ",
+               round(mean(data_small,na.rm = TRUE),digits = round),
+               " (",
+               round(sd(data_small,na.rm = TRUE),digits = round),
+               ")")
+    }
     }
     for (i in 1:length(levs1)) {
       for (j in 1:length(levs2)) {
@@ -53,8 +66,8 @@ multAovInteraction <- function(data,
     mat[1:length(levs1),2] <- levs1
     mat[1,1] <- var
 
-    pvals <- round(summary(aov(data[,var] ~ factor(data[,grp_var1]) * factor(data[,grp_var2])))[[1]][["Pr(>F)"]]
-                   ,pround)
+    pvals <- round(summary(aov(dataOne[,var] ~ factor(dataOne[,grp_var1]) * factor(dataOne[,grp_var2])))[[1]][["Pr(>F)"]]
+                   , pround)
 
     mat[1,(length(mat[1,]) - 1):length(mat[1,])] <- c(grp_var1,pvals[1])
     mat[2,(length(mat[1,]) - 1):length(mat[1,])] <- c(grp_var2,pvals[2])
@@ -65,7 +78,7 @@ multAovInteraction <- function(data,
     mat[is.na(mat)] <- " "
     output <- data.frame(mat)
     names(output) <-
-      c("Variable",grp_var1,paste(grp_var2,levs2),"Pval Effect","Pvalue")
+      c("Variable", grp_var1, paste(grp_var2,levs2), "Pval Effect", "Pvalue")
     return(output)
   }
   if (length(varlist) > 1)

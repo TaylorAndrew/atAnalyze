@@ -933,7 +933,7 @@ multGroup <- function(data,
           #overall
           if (percent == "row") {
             res[, 4] <-
-            paste(overalllong, paste("(", "100", "%row", ")", sep = ''))
+            paste(overalllong, paste("(", "100", "%", ")", sep = ''))
           }
           if (percent != "row") {
             if(include != "95ci") {

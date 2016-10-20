@@ -72,8 +72,9 @@ kmTable <- function(data, time, event, group) {
   outputAsMatrix[c(1:length(pairwise[,1])),5] <- pairwise[,1]
   outputAsMatrix[c(1:length(pairwise[,1])),6] <- pairwise[,2]
   outputAsMatrix[1, 7] <- diffP
+  outputAsMatrix[1:length(names(fit$strata)),1] <- gsub( ".*=", "", names(fit$strata))
   output <- as.data.frame(outputAsMatrix)
-  output[1:length(names(fit$strata)),1] <- gsub( ".*=", "", names(fit$strata))
+  
   names(output) <-
     c(
       "Group", "N Total", "N Events" ,"Median Survival (95% CI)",

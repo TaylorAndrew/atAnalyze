@@ -14,6 +14,7 @@
 #' #                      y=sample(c(0,1), 50, replace = T))
 #' #riskDifference(test_df, x = 'x', y = 'y')
 riskDifference <- function(data, y, x) {
+  data <- as.data.frame(data)
   tb <- table(data[, y], data[, x])
   doOne <- function(i) {
     CE = tb[2,1]

@@ -22,6 +22,7 @@ hdp <- within(hdp, {
   DID <- factor(DID)
   HID <- factor(HID)
 })
+library(lme4)
 m <- glmer(remission ~ IL6 + CRP + CancerStage + LengthofStay + Experience + (1 | DID),
            data = hdp,
            family = binomial,

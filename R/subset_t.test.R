@@ -9,6 +9,7 @@ subset_t.test <- function(data, #data.frame containing all variables
                           verbose = F,
                           aovPairedVar = NULL,
                           includeTukey = FALSE) { #Logical, if TRUE, print additional information to console
+  data <- as.data.frame(data)
   lenlevsgrp <- length(levels(factor(data[, grouping])))
   levsgrp <- levels(factor(data[, grouping]))
   # if(lenlevsgrp!=2) return(paste0("Grouping variable ", grouping, " does not have two levels. Number of levels = ", lenlevsgrp))

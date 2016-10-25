@@ -20,6 +20,7 @@
 twoWayTableWithMarginalPs <- function(data, columnGroup, rowGroup, var,
                                       columnPaired = FALSE, rowPaired = FALSE,
                                       aovPairedID) {
+  data <- as.data.frame(data)
   Table_Plus_rowPsList <- atAnalyze::subset_t.test(data = data,
                          var = var,
                          grouping = columnGroup,

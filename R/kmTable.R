@@ -16,6 +16,7 @@
 #' #                         c = rnorm(100))
 #' #kmTable(data=example_df, time = "c", event = "a", group = "b")
 kmTable <- function(data, time, event, group) {
+  data = as.data.frame(data)
   fit <- survfit(Surv(data[, time], data[, event]) ~ data[, group])
   diffP <- round(1 - pchisq(survdiff(Surv(data[, time], data[, 
         event]) ~ data[, group])$chisq, length(survdiff(Surv(data[, time], data[, 

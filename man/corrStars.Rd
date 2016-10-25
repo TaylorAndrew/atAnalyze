@@ -4,7 +4,7 @@
 \alias{corrStars}
 \title{corrStars}
 \usage{
-corrStars(x, method = "spearman", dec = 2)
+corrStars(x, method = "spearman", dec = 2, includeN = FALSE)
 }
 \arguments{
 \item{x}{Numeric matrix/data.frame}
@@ -12,6 +12,8 @@ corrStars(x, method = "spearman", dec = 2)
 \item{method}{correlation method: spearman, pearson, kendall}
 
 \item{dec}{number of decimal places for correlation coefficients}
+
+\item{N}{Logical, whether or not to include the N for each correlation}
 }
 \value{
 data.frame containing correlation table

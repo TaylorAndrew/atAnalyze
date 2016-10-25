@@ -4,7 +4,8 @@
 \alias{multAovInteraction}
 \title{multAovInteraction}
 \usage{
-multAovInteraction(data, grp_var1, grp_var2, varlist, round = 2, pround = 3)
+multAovInteraction(data, grp_var1, grp_var2, varlist, round = 2, pround = 3,
+  includeN = F)
 }
 \arguments{
 \item{data}{Input dataset}
@@ -18,6 +19,8 @@ multAovInteraction(data, grp_var1, grp_var2, varlist, round = 2, pround = 3)
 \item{round}{Number of decimals for descriptive statistics}
 
 \item{pround}{Number of decimals for p-values}
+
+\item{includeN}{Logical, whether to include the N for descriptives}
 }
 \value{
 data.frame containing the output summary

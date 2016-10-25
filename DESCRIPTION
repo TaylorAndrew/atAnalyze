@@ -19,7 +19,8 @@ Imports:
     pgirmess,
     logistf,
     broom,
-    gdata
+    gdata,
+    lme4
 RoxygenNote: 5.0.1
 Suggests: knitr,
     rmarkdown

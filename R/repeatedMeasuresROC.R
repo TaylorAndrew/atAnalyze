@@ -54,8 +54,3 @@ output = list(ROC_table = out, AUC = AUC)
 # And return it
 return(output)
 }
-
-
-
-
-

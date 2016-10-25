@@ -36,6 +36,7 @@ t_testList <- function(data,
                        paired = FALSE,
                        NPDescriptives = F,
                        NPtype = "IQR") {
+  data <- as.data.frame(data)
   do_one <- function(i) {
     varnames <- unlist(list_of_t.tests[i])
     print(varnames)

@@ -13,6 +13,7 @@
 #' @examples
 #' #None
 multKM <- function(data, time, event, catList) {
+  data <- as.data.frame(data)
   kmTable <- function(data, time, event, group) {
   library(survival)
   fit <- survfit(Surv(data[, time], data[, event]) ~ data[, group])

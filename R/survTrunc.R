@@ -16,6 +16,7 @@
 #' @examples
 #' #NULL
 survTrunc <- function(data, time, event, group, times, grpLabels=NULL, timeLabels=NULL) {
+  data <- as.data.frame(data)
   doOne <- function(OneTime) {
     if(!is.null(timeLabels)) {
       if(length(timeLabels)!=length(times)){

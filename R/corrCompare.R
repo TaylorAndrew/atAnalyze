@@ -21,13 +21,13 @@
 #' #jf <- corrCompare(data=dat, group="g")
 #' #View(jf)
 corrCompare <-
-  function(data = k,
-           group = "grp",
+  function(data = NULL,
+           group = NULL,
            method = "pearson",
            rdec = 3,
            pdec = 3,
            tdec = 3) {
-
+    data <- as.data.frame(data)
     glevels <- sort(unique(data[, group]))
     if (length(glevels) != 2)
       print("Sorry, Group must be two levels")

@@ -26,6 +26,7 @@ multAovInteraction <- function(data,
                              round = 2,
                              pround = 3,
                              includeN = F) {
+  data <- as.data.frame(data)
     do_one <- function(var) {
         dataOne <- data[complete.cases(data[, c(grp_var1, grp_var2, var)]) ,]
     rowlevs <- ifelse(length(levels(factor(dataOne[,grp_var1]))) < 3,3,

@@ -28,7 +28,7 @@ repeatedMeasuresROC <-  function(glmerModel) {
 ## Get predicted probabilities from glmer model
 preds <- predict(glmerModel, type = "response")
 
-## Create a funciton that will get sensitivity and specificity for a single cut point:
+## Create a function that will get sensitivity and specificity for a single cut point:
 getSensSpec <- function(cutpoint) {
     predBasedCut <- ifelse(preds <= cutpoint, 0, 1) # Get predicted probs based on cutpoint
     predBasedCut <-  factor(predBasedCut, levels = c(0, 1)) # Just in case all 1 or 0, make both levels
@@ -46,7 +46,7 @@ out <- do.call(rbind, lapply(seq(0, 1, by = 0.005), getSensSpec))
 wi = wilcox.test(preds[glmerModel@frame[, names(glmerModel@frame)[1]]==1],preds[glmerModel@frame[, names(glmerModel@frame)[1]]==0])
 # Get the wilcoxon statistic
 w = wi$statistic
-# Compute the AUC as the wilcoxon statistic divided by the number of positive pairs
+# Compute the AUC as the wilcoxon statistic divided by the product of the number of positive and negative observations
 AUC = w/(length(preds[glmerModel@frame[, names(glmerModel@frame)[1]]==1])*length(preds[glmerModel@frame[, names(glmerModel@frame)[1]]==0]))
 names(AUC) <- 'AUC'
 # Put both outputs together:

@@ -28,7 +28,7 @@ m <- glmer(remission ~ IL6 + CRP + CancerStage + LengthofStay + Experience + (1 
            family = binomial,
            control = glmerControl(optimizer = "bobyqa"),
            nAGQ = 10)
-           out <- repeatedMeasuresROC(m)
+out <- repeatedMeasuresROC(m)
 plot(x = 1-out$ROC_table$spec, y = out$ROC_table$sens)
 abline(0,1)
 (AUC = out$AUC)

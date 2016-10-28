@@ -5,7 +5,7 @@
 \title{multOutcomesLogistic}
 \usage{
 multOutcomesLogistic(data, predictor, outcomes, predictorAsFactor = FALSE,
-  rowwise = T, dec = 2, pdec = 3)
+  rowwise = T, dec = 2, pdec = 3, verbose = TRUE)
 }
 \arguments{
 \item{data}{data.frame containing all data for analyses}
@@ -21,6 +21,8 @@ multOutcomesLogistic(data, predictor, outcomes, predictorAsFactor = FALSE,
 \item{dec}{Number of decimals to round descriptive}
 
 \item{pdec}{Number of decimals to round p-vales}
+
+\item{verbose}{Logical: should extra information be printed to the console}
 }
 \value{
 A data.frame R object is returned

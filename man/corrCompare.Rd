@@ -4,7 +4,7 @@
 \alias{corrCompare}
 \title{corrCompare}
 \usage{
-corrCompare(data = k, group = "grp", method = "pearson", rdec = 3,
+corrCompare(data = NULL, group = NULL, method = "pearson", rdec = 3,
   pdec = 3, tdec = 3)
 }
 \arguments{

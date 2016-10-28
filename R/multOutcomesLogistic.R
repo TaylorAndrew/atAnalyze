@@ -9,6 +9,7 @@
 #' @param rowwise If TRUE, row-wise percents are provided in the case of categorical predictors
 #' @param dec Number of decimals to round descriptive
 #' @param pdec Number of decimals to round p-vales
+#' @param verbose Logical: should extra information be printed to the console
 #'
 #' @return A data.frame R object is returned
 #' @export
@@ -22,10 +23,14 @@ multOutcomesLogistic <-
            predictorAsFactor = FALSE,
            rowwise = T,
            dec = 2,
-           pdec = 3) {
+           pdec = 3,
+           verbose = TRUE) {
     data <- as.data.frame(data)
 
     makeone <- function(out) {
+    if(verbose==T) {
+        print(paste0(out, 'is now being analyzed'))
+    }
       nlvs <- length(levels(factor(data[, out])))
       if (nlvs != 2) {
         print(paste0(
@@ -56,7 +61,7 @@ multOutcomesLogistic <-
         desc_y1 <- paste0(counts[,1], " (", percts[,1], ")")
         desc_y2 <- paste0(counts[,2], " (", percts[,2], ")")
       }
-      if (levelsNum != c(0, 1)) {
+      if (max(as.numeric(levelsNum) != c(0, 1))==1) {
         print(paste0(out, " is not coded c(0, 1). ",
                      "Will be re-coded to c(0, 1) for analysis purposes, but will be presented with the original levels."))
         print(paste0("Models will model ", out, "==", levels(factor(data[, out]))[2]))
@@ -68,7 +73,7 @@ multOutcomesLogistic <-
       if (predictorAsFactor == T)
         mod <-
         glm(data[, out] ~ factor(data[, predictor]), data = data, family = "binomial")
-      output <- tidy(mod, exponentiate = T, conf.int = T)
+      output <- broom::tidy(mod, exponentiate = T, conf.int = T)
       output[, 1] <-
         gsub("data\\[, predictor\\]", paste0(predictor, " "), output[, 1])
       output[, 1] <-
@@ -95,8 +100,8 @@ multOutcomesLogistic <-
                               output[, 3])
         names(output2) <- c("Outcome: Modeling Level",
                            "Predictor",
-                           paste0(out, ":", levelsNum[1], " Mean (Std.Dev)"),
-                           paste0(out, ":", levelsNum[2], " Mean (Std.Dev)"),
+                           paste0('0:', " Mean (Std.Dev)"),
+                           paste0('1:', " Mean (Std.Dev)"),
                            "Odds Ratio (95% CI)",
                            "p.value")
       }
@@ -117,6 +122,7 @@ multOutcomesLogistic <-
                            "Odds Ratio (95% CI)",
                            "p.value")
       }
+      print(names(output2))
       return(output2)
     }
  fullOut <- do.call(rbind, lapply(outcomes, makeone))

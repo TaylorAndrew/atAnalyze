@@ -122,7 +122,6 @@ multOutcomesLogistic <-
                            "Odds Ratio (95% CI)",
                            "p.value")
       }
-      print(names(output2))
       return(output2)
     }
  fullOut <- do.call(rbind, lapply(outcomes, makeone))

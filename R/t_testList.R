@@ -35,11 +35,12 @@ t_testList <- function(data,
                        parametric = TRUE,
                        paired = FALSE,
                        NPDescriptives = F,
-                       NPtype = "IQR") {
+                       NPtype = "IQR",
+                       verbose = FALSE) {
   data <- as.data.frame(data)
   do_one <- function(i) {
     varnames <- unlist(list_of_t.tests[i])
-    print(varnames)
+    if(verbose==TRUE) print(paste0('Now analyzing ', varnames[1], ' and ', varnames[2]))
     subdat <- data[, unlist(list_of_t.tests[i])]
     if (paired == TRUE)
       subdat <- subdat[complete.cases(subdat), ]

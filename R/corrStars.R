@@ -12,7 +12,10 @@
 #'
 #' @examples
 #' #NULL
-corrStars <- function(x, method = "spearman", dec = 2, includeN= FALSE) {
+corrStars <- function(x, method = "pearson", dec = 2, includeN= FALSE) {
+  if(!method%in%c('spearman', 'pearson') {
+    return(print("'method' must be one of: 'spearman', or 'pearson'"))
+    }
   x <- as.matrix(x)
   R <- rcorr(x,type = method)$r
   p <- rcorr(x,type = method)$P

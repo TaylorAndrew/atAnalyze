@@ -12,7 +12,7 @@
 #'
 #' @examples
 #' #NULL
-corrStars <- function(x, method = "spearman", dec = 2, includeN= FALSE) {
+corrStars <- function(x, method = "pearson", dec = 2, includeN= FALSE) {
   x <- as.matrix(x)
   R <- rcorr(x,type = method)$r
   p <- rcorr(x,type = method)$P

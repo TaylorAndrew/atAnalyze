@@ -66,19 +66,20 @@ multKM <- function(data, time, event, catList) {
     )
   mLen <- max(length(descript[,1]), length(pairwise[,1]))
 
-  outputAsMatrix <- matrix(nrow = mLen, ncol = 7)
-  outputAsMatrix[c(1:length(descript[,1])),1] <- descript[,1]
-  outputAsMatrix[c(1:length(descript[,1])),2] <- descript[,2]
-  outputAsMatrix[c(1:length(descript[,1])),3] <- descript[,3]
-  outputAsMatrix[c(1:length(descript[,1])),4] <-
+  outputAsMatrix <- matrix(nrow = mLen, ncol = 8)
+  outputAsMatrix[1, 1] <- group
+  outputAsMatrix[c(1:length(descript[,1])),2] <- gsub('data\\[, group\\]=', '', attributes(fit$strata)$names)
+  outputAsMatrix[c(1:length(descript[,1])),3] <- descript[,2]
+  outputAsMatrix[c(1:length(descript[,1])),4] <- descript[,3]
+  outputAsMatrix[c(1:length(descript[,1])),5] <-
     as.character(descript[,4])
-  outputAsMatrix[c(1:length(pairwise[,1])),5] <- pairwise[,1]
-  outputAsMatrix[c(1:length(pairwise[,1])),6] <- pairwise[,2]
-  outputAsMatrix[1, 7] <- diffP
+  outputAsMatrix[c(1:length(pairwise[,1])),6] <- pairwise[,1]
+  outputAsMatrix[c(1:length(pairwise[,1])),7] <- pairwise[,2]
+  outputAsMatrix[1, 8] <- diffP
   output <- as.data.frame(outputAsMatrix)
   names(output) <-
     c(
-      "Group", "N Total", "N Events" ,"Median Survival (95% CI)",
+      "Variable", "Group", "N Total", "N Events" ,"Median Survival (95% CI)",
       "Pairwise Comparison", "Pairwise P-value", "Overall Log-Rank Test"
     )
   return(output)

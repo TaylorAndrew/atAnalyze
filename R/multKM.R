@@ -66,7 +66,7 @@ multKM <- function(data, time, event, catList) {
     )
   mLen <- max(length(descript[,1]), length(pairwise[,1]))
 
-  outputAsMatrix <- matrix(nrow = mLen, ncol = 8)
+  outputAsMatrix <- matrix('', nrow = mLen, ncol = 8)
   outputAsMatrix[1, 1] <- group
   outputAsMatrix[c(1:length(descript[,1])),2] <- gsub('data\\[, group\\]=', '', attributes(fit$strata)$names)
   outputAsMatrix[c(1:length(descript[,1])),3] <- descript[,2]
@@ -77,6 +77,7 @@ multKM <- function(data, time, event, catList) {
   outputAsMatrix[c(1:length(pairwise[,1])),7] <- pairwise[,2]
   outputAsMatrix[1, 8] <- diffP
   output <- as.data.frame(outputAsMatrix)
+
   names(output) <-
     c(
       "Variable", "Group", "N Total", "N Events" ,"Median Survival (95% CI)",

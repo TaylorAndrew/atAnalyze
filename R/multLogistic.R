@@ -17,7 +17,7 @@
 #' @param rowwisePercent If TRUE, present row-wise percents for descriptive statistics
 #' @param includeCI If TRUE, confidence intervals for the means/proportions are included in the output.
 #' @param verbose If TRUE, print additional information to the console
-
+#' @param riskRatio If TRUE, output the risk ratio instead of odds ratios
 #'
 #' @return An R data.frame object contianing all results.
 #' @export
@@ -38,7 +38,8 @@ multLogistic <- function(data,
                          pdec = 3,
                          rowwisePercent = T,
                          includeCI = F,
-                         verbose = TRUE) {
+                         verbose = TRUE,
+                         relativeRisk = FALSE) {
   yvar <- y
   data <- as.data.frame(data)
   data <- subset(data, !is.na(data[, yvar]))
@@ -206,11 +207,20 @@ multLogistic <- function(data,
       if (conditionalLogistic == FALSE) {
         if (is.null(controlCatList) & is.null(controlContinList)) {
           tC <- tryCatch(
+            if(relativeRisk==T) {
+            glm(
+              newdat[,yvar] ~ newdat[,x],
+              family = binomial(link = 'log'),
+              data = newdat
+            )
+            } else {
             glm(
               newdat[,yvar] ~ newdat[,x],
               family = binomial(logit),
               data = newdat
-            ),
+            )
+            }
+            ,
             warning = function(w)
               w,
             error = function(e)
@@ -218,11 +228,19 @@ multLogistic <- function(data,
           )
           tC2 <- tryCatch(
             confint(
-              glm(
-                newdat[,yvar] ~ newdat[,x],
-                family = binomial(logit),
-                data = newdat
-              )
+              if(relativeRisk==T) {
+            glm(
+              newdat[,yvar] ~ newdat[,x],
+              family = binomial(link = 'log'),
+              data = newdat
+            )
+            } else {
+            glm(
+              newdat[,yvar] ~ newdat[,x],
+              family = binomial(logit),
+              data = newdat
+            )
+            }
             ),
             warning = function(w)
               w,
@@ -243,9 +261,13 @@ multLogistic <- function(data,
             LRmethod = "pML"
           } else {
             print(paste0(x, ": Using ML Method"))
+            if(relativeRisk==T) {
+            mod <-
+              glm(newdat[,yvar] ~ newdat[,x], family = binomial(link = 'log'))
+            } else {
             mod <-
               glm(newdat[,yvar] ~ newdat[,x], family = binomial(logit))
-            LRmethod = "ML"
+            }
           }
         }
         if (!is.null(controlCatList) & !is.null(controlContinList)) {
@@ -471,7 +493,7 @@ multLogistic <- function(data,
         "Overall",
         paste0(yvar," = 0"),
         paste0(yvar," = 1"),
-        "Odds Ratio",
+        if(relativeRisk==T) "RR (95% CI)" else "OR (95% CI)",
         "p-value",
         "Method"
       )
@@ -490,7 +512,7 @@ multLogistic <- function(data,
         "Overall",
         paste0(yvar," = 0"),
         paste0(yvar," = 1"),
-        "Odds Ratio",
+        if(relativeRisk==T) "RR (95% CI)" else "OR (95% CI)",
         "p-value",
         "Method"
       )
@@ -578,9 +600,15 @@ multLogistic <- function(data,
         if (is.null(controlCatList) & is.null(controlContinList)) {
           tC <-
             tryCatch(
+            if(relativeRisk==T) {
+              glm(
+                newdat[,yvar] ~ factor(newdat[,x]), family = binomial(link='log'), data = newdat
+              )
+            } else {
               glm(
                 newdat[,yvar] ~ factor(newdat[,x]), family = binomial(logit), data = newdat
-              ),
+              )
+            },
               warning = function(w)
                 w,
               error = function(e)
@@ -588,9 +616,17 @@ multLogistic <- function(data,
             )
           tC2 <-
             tryCatch(
-              confint(glm(
+              confint(
+                if(relativeRisk==T) {
+              glm(
+                newdat[,yvar] ~ factor(newdat[,x]), family = binomial(link = 'log')
+              , data = newdat)} else {
+                glm(
                 newdat[,yvar] ~ factor(newdat[,x]), family = binomial(logit)
-              ), data = newdat),
+              , data = newdat)
+                  }
+              )
+              ,
               warning = function(w)
                 w,
               error = function(e)
@@ -608,8 +644,14 @@ multLogistic <- function(data,
             LRmethod <- "pML"
           } else {
             print(paste0(x, ": Using ML Method"))
-            mod <-
+            if(relativeRisk==T) {
+                mod <-
+              glm(newdat[,yvar] ~ newdat[,x], family = binomial(link = 'log'))
+            } else {
+                mod <-
               glm(newdat[,yvar] ~ newdat[,x], family = binomial(logit))
+            }
+
             LRmethod <- "ML"
           }
         }
@@ -869,7 +911,7 @@ multLogistic <- function(data,
     "Response",
     "Overall",
     paste0(yvar, c(" = 0", " = 1")),
-    "Odds Ratio (95% CI)",
+    if(relativeRisk==T) "RR (95% CI)" else "OR (95% CI)",
     "p-value",
     "Method"
   )

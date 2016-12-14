@@ -210,7 +210,7 @@ multLogistic <- function(data,
             if(relativeRisk==T) {
             glm(
               newdat[,yvar] ~ newdat[,x],
-              family = binomial(link = 'log'),
+              family = poisson(link = 'log'),
               data = newdat
             )
             } else {
@@ -231,7 +231,7 @@ multLogistic <- function(data,
               if(relativeRisk==T) {
             glm(
               newdat[,yvar] ~ newdat[,x],
-              family = binomial(link = 'log'),
+              family = poisson(link = 'log'),
               data = newdat
             )
             } else {
@@ -263,7 +263,7 @@ multLogistic <- function(data,
             print(paste0(x, ": Using ML Method"))
             if(relativeRisk==T) {
             mod <-
-              glm(newdat[,yvar] ~ newdat[,x], family = binomial(link = 'log'))
+              glm(newdat[,yvar] ~ newdat[,x], family = poisson(link = 'log'))
             } else {
             mod <-
               glm(newdat[,yvar] ~ newdat[,x], family = binomial(logit))
@@ -603,7 +603,7 @@ multLogistic <- function(data,
             tryCatch(
             if(relativeRisk==T) {
               glm(
-                newdat[,yvar] ~ factor(newdat[,x]), family = binomial(link='log'), data = newdat
+                newdat[,yvar] ~ factor(newdat[,x]), family = poisson(link='log'), data = newdat
               )
             } else {
               glm(
@@ -620,7 +620,7 @@ multLogistic <- function(data,
               confint(
                 if(relativeRisk==T) {
               glm(
-                newdat[,yvar] ~ factor(newdat[,x]), family = binomial(link = 'log')
+                newdat[,yvar] ~ factor(newdat[,x]), family = poisson(link = 'log')
               , data = newdat)} else {
                 glm(
                 newdat[,yvar] ~ factor(newdat[,x]), family = binomial(logit)
@@ -647,7 +647,7 @@ multLogistic <- function(data,
             print(paste0(x, ": Using ML Method"))
             if(relativeRisk==T) {
                 mod <-
-              glm(newdat[,yvar] ~ newdat[,x], family = binomial(link = 'log'))
+              glm(newdat[,yvar] ~ newdat[,x], family = poisson(link = 'log'))
             } else {
                 mod <-
               glm(newdat[,yvar] ~ newdat[,x], family = binomial(logit))

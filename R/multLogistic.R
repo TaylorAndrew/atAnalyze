@@ -268,6 +268,7 @@ multLogistic <- function(data,
             mod <-
               glm(newdat[,yvar] ~ newdat[,x], family = binomial(logit))
             }
+              LRmethod = 'ML'
           }
         }
         if (!is.null(controlCatList) & !is.null(controlContinList)) {

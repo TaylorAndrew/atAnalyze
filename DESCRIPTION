@@ -20,7 +20,8 @@ Imports:
     logistf,
     broom,
     gdata,
-    lme4
+    lme4,
+    sandwich
 RoxygenNote: 5.0.1
 Suggests: knitr,
     rmarkdown

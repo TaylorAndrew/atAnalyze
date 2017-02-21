@@ -35,8 +35,8 @@ multAovInteraction <- function(data,
                   ncol = (length(levels(factor(
                     dataOne[,grp_var2]
                   ))) + 4))
-    levs1 <- sort(levels(factor(dataOne[,grp_var1])))
-    levs2 <- sort(levels(factor(dataOne[,grp_var2])))
+    levs1 <- levels(factor(dataOne[,grp_var1]))
+    levs2 <- levels(factor(dataOne[,grp_var2]))
     do_cell <- function(i,j) {
       data_small <-
         as.numeric(unlist(subset(

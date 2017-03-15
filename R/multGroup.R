@@ -183,7 +183,7 @@ multGroup <- function(data,
                                " ",
                                "(",
                                overallsd,
-                               ")\n",
+                               ") ",
                                overallrange)
       }
       if (include == '95ci') {
@@ -193,7 +193,7 @@ multGroup <- function(data,
                                " ",
                                "(",
                                overallsd,
-                               ")\n",
+                               ") ",
                                overall95ci)
       }
       getPstats <- function(level) {
@@ -234,7 +234,7 @@ multGroup <- function(data,
                           " ",
                           "(",
                           sd1,
-                          ")\n",
+                          ") ",
                           paste0(
                             round(range(xclean)[1], digits = dec),
                             ", ",
@@ -249,7 +249,7 @@ multGroup <- function(data,
                           " ",
                           "(",
                           sd1,
-                          ")\n",
+                          ") ",
                           one95ci)
         }
         #return the result 'up' a level to be used in the next function
@@ -381,9 +381,9 @@ multGroup <- function(data,
       } else if (include == 'none') {
         resp <- "N  Mean (Std.Dev.)"
       } else if (include == 'range') {
-        resp <- "N  Mean (Std.Dev.)\nRange"
+        resp <- "N  Mean (Std.Dev.) Range"
       } else {
-        resp <- "N  Mean (Std.Dev.)\n(95% CI)"
+        resp <- "N  Mean (Std.Dev.) (95% CI)"
       }
       #pull together the descriptives, and the test results for a single DV
       Poneline <-
@@ -487,7 +487,7 @@ multGroup <- function(data,
                                " ",
                                "(",
                                overallsd,
-                               ")\n",
+                               ") ",
                                overallrange)
       }
       if (include == '95ci') {
@@ -497,7 +497,7 @@ multGroup <- function(data,
                                " ",
                                "(",
                                overallsd,
-                               ")\n",
+                               ") ",
                                overall95ci)
       }
       getPstats <- function(level) {
@@ -540,7 +540,7 @@ multGroup <- function(data,
                           " ",
                           "( ",
                           sd1,
-                          ")\n",
+                          ") ",
                           paste0(
                             round(range(xclean)[1], digits = dec),
                             ", ",
@@ -554,7 +554,7 @@ multGroup <- function(data,
                           " ",
                           "(",
                           sd1,
-                          ")\n",
+                          ") ",
                           one95ci)
         }
         #return the result 'up' a level to be used in the next function
@@ -682,9 +682,9 @@ multGroup <- function(data,
       } else if (include == 'none') {
         resp <- "N  Mean (Std.Dev.)"
       } else if (include == 'range') {
-        resp <- "N  Mean (Std.Dev.)\nRange"
+        resp <- "N  Mean (Std.Dev.) Range"
       } else {
-        resp <- "N  Mean (Std.Dev.)\n(95% CI)"
+        resp <- "N  Mean (Std.Dev.) (95% CI)"
       }
       #pull together the descriptives, and the test results for a single DV
       NPoneline <-

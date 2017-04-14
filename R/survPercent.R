@@ -5,6 +5,7 @@
 #' @param model A survfit(Surv()) model from the survival package
 #' @param times A vector of times to provide survival percentages for
 #' @param labels Labels for the grouping variable, if applicable
+#' @param variance Must be either 'confint' or 'stderr'. Decides whether to provide survival as a percent with 95% confidence intervals or as an estimate with a standard error.
 #'
 #' @return A data.frame containing survival percentages.
 #' @export
@@ -19,8 +20,13 @@
 #' #survPercent(model = sMod, times = 1:5*10, labels=c("Group 1", "Group 2", "Group 3"))
 survPercent <- function(model,
                         times,
-                        labels = NULL) {
+                        labels = NULL,
+                        variance = 'confint') {
+  if(!variance%in%c('confint', 'stderr')) {
+      return(print("variance must be either 'confint' or 'stderr'"))
+  }
   out <- summary(model, times = times)
+  if(variance == 'confint'){
   mat <- matrix(
     paste0(
       round(100 * out$surv, 2),
@@ -38,6 +44,23 @@ survPercent <- function(model,
     nrow = length(times),
     byrow = F
   )
+  } else {
+  mat <- matrix(
+    paste0(
+      round(out$surv, 3),
+      " (",
+      round(out$std.err, 3),
+      ")"
+    ),
+    ncol = if (is.vector(out$table)) {
+      1
+    } else {
+      length(out$table[,1])
+    },
+    nrow = length(times),
+    byrow = F
+  )
+  }
   m <- data.frame(Time = times, data.frame(mat))
   if (is.null(labels)) {
     names(m) <-

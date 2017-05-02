@@ -145,11 +145,11 @@ multGroup <- function(data,
       if (include == '95ci') {
         overallSE <- sd(overallxs) / sqrt(overallN)
         E <- qt(.975, overallN - 1) * overallSE
-        overall95ci <- paste0(" (",
+        overall95ci <- paste0(" [",
                               sprintf(paste0("%.", dec, "f"), round(mean(overallxs) - E, digits = dec)),
                               ", ",
                               sprintf(paste0("%.", dec, "f"), round(mean(overallxs) + E, digits = dec)),
-                              ")")
+                              "]")
       }
 
       if (include == 'none') {
@@ -215,11 +215,11 @@ multGroup <- function(data,
         if (include == '95ci') {
           oneSE <- sd(xclean) / sqrt(n)
           E <- qt(.975, n - 1) * oneSE
-          one95ci <- paste0(" (",
+          one95ci <- paste0(" [",
                             sprintf(paste0("%.", dec, "f"), round(mean(xclean) - E, digits = dec)),
                             ", ",
                             sprintf(paste0("%.", dec, "f"), round(mean(xclean) + E, digits = dec)),
-                            ")")
+                            "]")
         }
 
 
@@ -452,11 +452,11 @@ multGroup <- function(data,
       if (include == '95ci') {
         overallSE <- sd(overallxs) / sqrt(overallN)
         E <- qt(.975, overallN - 1) * overallSE
-        overall95ci <- paste0(" (",
+        overall95ci <- paste0(" [",
                               sprintf(paste0("%.", dec, "f"), round(mean(overallxs) - E, digits = dec)),
                               ", ",
                               sprintf(paste0("%.", dec, "f"), round(mean(overallxs) + E, digits = dec)),
-                              ")")
+                              "]")
       }
 
 
@@ -521,11 +521,11 @@ multGroup <- function(data,
         if (include == '95ci') {
           oneSE <- sd(xclean) / sqrt(n)
           E <- qt(.975, n - 1) * oneSE
-          one95ci <- paste0(" (",
+          one95ci <- paste0(" [",
                             sprintf(paste0("%.", dec, "f"), round(mean(xclean) - E, digits = dec)),
                             ", ",
                             sprintf(paste0("%.", dec, "f"), round(mean(xclean) + E, digits = dec)),
-                            ")")
+                            "]")
         }
 
 
@@ -787,7 +787,7 @@ multGroup <- function(data,
             )))
            if(include == "95ci") {
             ciPropTable <- round(100*ciProp(var), 1)
-            ciPropTable <- paste0("(", ciPropTable[,1], "%, ", ciPropTable[,2], "%)")
+            ciPropTable <- paste0("[", ciPropTable[,1], "%, ", ciPropTable[,2], "%]")
           }
           #get proportions for the table
           longprop <- sprintf(paste0("%.", dec, "f"),

@@ -383,7 +383,7 @@ multGroup <- function(data,
       } else if (include == 'range') {
         resp <- "N  Mean (Std.Dev.) Range"
       } else {
-        resp <- "N  Mean (Std.Dev.) (95% CI)"
+        resp <- "N  Mean (Std.Dev.) [95% CI]"
       }
       #pull together the descriptives, and the test results for a single DV
       Poneline <-
@@ -684,7 +684,7 @@ multGroup <- function(data,
       } else if (include == 'range') {
         resp <- "N  Mean (Std.Dev.) Range"
       } else {
-        resp <- "N  Mean (Std.Dev.) (95% CI)"
+        resp <- "N  Mean (Std.Dev.) [95% CI]"
       }
       #pull together the descriptives, and the test results for a single DV
       NPoneline <-

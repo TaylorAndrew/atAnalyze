@@ -61,7 +61,7 @@ multGroup <- function(data,
   deleteExtraneous <- F
   data <- as.data.frame(data)
   if(!is.null(grouping)) {
-    data <- subset(data, !is.na(data[, grouping]))
+    data <- subset(data, !is.na(data[[grouping]]))
   }
   if (is.null(grouping)) {
     keepNames <- names(data)
@@ -74,7 +74,7 @@ multGroup <- function(data,
     deleteExtraneous <- T
   }
   if (!is.null(grouping) & !is.null(labels)) {
-    if (length(labels) != length(levels(factor(data[, grouping])))) {
+    if (length(labels) != length(levels(factor(data[[grouping]])))) {
       return(paste0(
         "Number of labels does not match number of levels of ",
         "grouping variable"
@@ -105,7 +105,7 @@ multGroup <- function(data,
   }
   if (!is.null(PcontinVars)) {
     #Get a list of the groups being compared
-    flist <- sort(unique(data[, grouping]))
+    flist <- sort(unique(data[[grouping]]))
     #Function to get descriptive statistics per group
     descriptive <- function(x) {
       if (verbose == T)
@@ -200,7 +200,7 @@ multGroup <- function(data,
         #what group level are we looking at?
         grouplevel <- level
         #get only the data for individuals in that group
-        xs <- as.numeric(xlist[data[, grouping] == flist[level]])
+        xs <- as.numeric(xlist[data[[grouping]] == flist[level]])
         #get rid of all NAs
         xclean <- xs[!is.na(xs)]
         #get the mean, rounded
@@ -259,7 +259,7 @@ multGroup <- function(data,
         #what group level are we looking at?
         grouplevel <- level
         #get only the data for individuals in that group
-        xs <- as.numeric(xlist[data[, grouping] == flist[level]])
+        xs <- as.numeric(xlist[data[[grouping]] == flist[level]])
         #get rid of all NAs
         xclean <- xs[!is.na(xs)]
         med <-
@@ -316,10 +316,10 @@ multGroup <- function(data,
       }
       if (Test == "t.test") {
         x1 <-
-          suppressWarnings(as.numeric(as.character(data[, x][data[, grouping] == flist[1]])))
+          suppressWarnings(as.numeric(as.character(data[, x][data[[grouping]] == flist[1]])))
         x1clean <- x1[!is.na(x1)]
         x2 <-
-          suppressWarnings(as.numeric(as.character(data[, x][data[, grouping] == flist[2]])))
+          suppressWarnings(as.numeric(as.character(data[, x][data[[grouping]] == flist[2]])))
         x2clean <- x2[!is.na(x2)]
         tc <- tryCatch(t.test(x1clean, x2clean),
                         warning = function(w)
@@ -348,9 +348,9 @@ multGroup <- function(data,
       }
       if (Test == "ANOVA") {
         anovasum <-
-          summary(aov(data[, x] ~ factor(data[, grouping])))[[1]][["Pr(>F)"]]
+          summary(aov(data[, x] ~ factor(data[[grouping]])))[[1]][["Pr(>F)"]]
         testname <- "ANOVA"
-        modelfortuk <- aov(data[, x] ~ factor(data[, grouping]))
+        modelfortuk <- aov(data[, x] ~ factor(data[[grouping]]))
         #extra bit for ANOVA is doing a TukeyHSD multiple comparisons
         if (anovasum[1] <= .05) {
           pairps <- TukeyHSD(modelfortuk)[[1]][, 4]
@@ -416,7 +416,7 @@ multGroup <- function(data,
   #For nonparametric continuous variables
   if (!is.null(NPcontinVars)) {
     #Get a list of the groups being compared
-    flist <- sort(unique(data[, grouping]))
+    flist <- sort(unique(data[[grouping]]))
     #Function to get descriptive statistics per group
     descriptive <- function(x) {
       if (verbose == T) print(paste0(x, " is now being analyzed"))
@@ -505,7 +505,7 @@ multGroup <- function(data,
         grouplevel <- level
         #get only the data for individuals in that group
         xs <-
-          suppressWarnings(as.numeric(as.character(xlist[data[, grouping] == flist[level]])))
+          suppressWarnings(as.numeric(as.character(xlist[data[[grouping]] == flist[level]])))
         #get rid of all NAs
         xclean <- xs[!is.na(xs)]
         #get the mean, rounded
@@ -565,7 +565,7 @@ multGroup <- function(data,
         grouplevel <- level
         #get only the data for individuals in that group
         xs <-
-          suppressWarnings(as.numeric(as.character(xlist[data[, grouping] == flist[level]])))
+          suppressWarnings(as.numeric(as.character(xlist[data[[grouping]] == flist[level]])))
         #get rid of all NAs
         xclean <- xs[!is.na(xs)]
         med <-
@@ -613,10 +613,10 @@ multGroup <- function(data,
       }
       if (Test == "t.test") {
         x1 <-
-          suppressWarnings(as.numeric(as.character(data[, x][data[, grouping] == flist[1]])))
+          suppressWarnings(as.numeric(as.character(data[, x][data[[grouping]] == flist[1]])))
         x1clean <- x1[!is.na(x1)]
         x2 <-
-          suppressWarnings(as.numeric(as.character(data[, x][data[, grouping] == flist[2]])))
+          suppressWarnings(as.numeric(as.character(data[, x][data[[grouping]] == flist[2]])))
         x2clean <- x2[!is.na(x2)]
         tC <- tryCatch(
           wilcox.test(x1clean, x2clean, exact = T),
@@ -657,11 +657,11 @@ multGroup <- function(data,
       }
       if (Test == "ANOVA") {
         anovasum <-
-          kruskal.test(data[, x] ~ data[, grouping])$p.value
+          kruskal.test(data[, x] ~ data[[grouping]])$p.value
         testname <- "Kruskal-Wallis"
         #Again we have to do multiple comparisons since more than 2 groups
         sigpsTF <-
-          kruskalmc(data[, x] ~ data[, grouping])$dif.com[, 3]
+          kruskalmc(data[, x] ~ data[[grouping]])$dif.com[, 3]
         sigps <- which(sigpsTF %in% TRUE)
         if (length(sigps) == 0) {
           sigpcol = "None"
@@ -762,7 +762,7 @@ multGroup <- function(data,
     indexedListLocation = 0
     get.cat.stats <-
       function(catVars,
-               group = data[, grouping],
+               group = factor(data[, grouping]),
                dec = dec,
                ...) {
         get.chi.stuff <- function(var) {
@@ -945,11 +945,39 @@ multGroup <- function(data,
              paste(overalllong, paste("(", overallprop, "%", ") ", ciPropTable, sep = ''))
             }
           }
-
-          #number of columns being used is contengent on the size of the
-          #grouping variable
-          res[, 5:(4 + length(flist))] <-
+         if(include == "95ci" & percent == 'row') {
+           getoneRow <- function(rowLevel) {
+               group <- factor(group)
+               var <- factor(var)
+               x = group[var == rowLevel]
+               ciRow <- round(100*ciProp(x), 1)
+               ciRow <- paste0("[", ciRow[,1], "%, ", ciRow[,2], "%]")
+               return(ciRow)
+           }
+           CIs <- do.call(rbind, lapply(levels(factor(var)), getoneRow))
+          }
+          if(include == "95ci" & percent == 'column') {
+           getoneCol <- function(colLevel) {
+               group <- factor(group)
+               var <- factor(var)
+               x = var[group == colLevel]
+               ciCol <- round(100*ciProp(x), 1)
+               ciCol <- paste0("[", ciCol[,1], "%, ", ciCol[,2], "%]")
+               # print(x)
+               return(ciCol)
+           }
+           CIs <- do.call(cbind, lapply(levels(factor(group)), getoneCol))
+           }
+          # number of columns being used is contengent on the size of the
+          # grouping variable
+          if(include != '95ci'){
+            res[, 5:(4 + length(flist))] <-
             paste(long, paste("(", longprop, "%", ")", sep = ''))
+          } else {
+            res[, 5:(4 + length(flist))] <-
+            paste(long, paste("(", longprop, "%", ")", sep = ''), CIs)
+          }
+
           #add in test stats to the appropriate columns
           res[1, (5 + length(flist)):(6 + length(flist))] <-
             teststats
@@ -972,7 +1000,7 @@ multGroup <- function(data,
     Pcattable <-
       get.cat.stats(
         catVars = PcatVars,
-        group = data[, grouping],
+        group = data[[grouping]],
         data = data,
         dec = dec,
         pdec =
@@ -1019,7 +1047,7 @@ multGroup <- function(data,
     indexedListLocation = 0
     get.cat.stats <-
       function(catVars,
-               group = data[, grouping],
+               group = data[[grouping]],
                dec = dec,
                ...) {
         get.chi.stuff <- function(var) {
@@ -1215,7 +1243,7 @@ multGroup <- function(data,
     NPcattable <-
       get.cat.stats(
         catVars = NPcatVars,
-        group = data[, grouping],
+        group = data[[grouping]],
         data = data,
         dec = dec,
         pdec =
@@ -1291,7 +1319,7 @@ multGroup <- function(data,
                     if (!is.null(labels)) {
                       labels
                     } else {
-                      as.character(sort(unique(data[, grouping])))
+                      as.character(sort(unique(data[[grouping]])))
                     },
                     "p value",
                     "Test",
@@ -1300,7 +1328,7 @@ multGroup <- function(data,
     final <- final[,-c(3, 5:8)]
   }
   if (deleteExtraneous == F &
-      length(levels(factor(data[, grouping]))) < 3) {
+      length(levels(factor(data[[grouping]]))) < 3) {
     final <- final[,-c(length(final[1,]))]
   }
   return(final)

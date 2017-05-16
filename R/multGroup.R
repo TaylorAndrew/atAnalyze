@@ -35,9 +35,7 @@
 #' #          NPcontinVars = "time",
 #' #          grouping = "event",
 #' #          PcontinVars = "x1",
-#' #          NPcatVars = "x2",
-#' #          keepOutput=T,
-#' #          printOutput = F)
+#' #          NPcatVars = "x2")
 multGroup <- function(data,
                       PcontinVars = NULL,
                       PcatVars = NULL,
